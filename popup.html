@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PopUp</title>
+    <link rel="stylesheet" href="./popup.css">
+</head>
+<body>
+    <div id="overlay"></div>
+
+    <div id="popupContainer">
+        <h2 id="greeting">Hello, </h2>
+        <h3>Hope you are doing Well!</h3>
+        <h4 id="holidays"></h4>
+        <div id="buttonContainer">
+            <button id="colorchangeButton"onclick="colorchange('background')">Change Background Color</button>
+            <button id="colorchangeButton"onclick="colorchange('text')">Change Text Color</button>
+            <button id="closePopupButton" onclick="closePopup()">Close</button>
+        </div>
+        
+        <input type="color" id="colorpicker" style="visibility: hidden;; position: relative; right: 91%; top: 57%;" onchange="applyColor()">
+        
+       
+    </div>
+    <div id="fireworksContainer"></div>
+
+
+    <script src="./popup.js"></script>
+</body>
+</html>
