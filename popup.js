@@ -1,95 +1,109 @@
+f// Create overlay and popup container dynamically
+function createOverlayAndPopup() {
+    // Create overlay element
+    const overlay = document.createElement('div');
+    overlay.id = 'overlay';
+    document.body.appendChild(overlay);
+
+    // Create popup container element
+    const popupContainer = document.createElement('div');
+    popupContainer.id = 'popupContainer';
+
+    // Create content inside the popup container
+    const greeting = document.createElement('h2');
+    greeting.id = 'greeting';
+    greeting.textContent = "Hello, ";
+
+    const wellWishes = document.createElement('h3');
+    wellWishes.textContent = "Hope you are doing Well!";
+
+    const holidayMessage = document.createElement('h4');
+    holidayMessage.id = 'holidays';
+
+    // Append elements to popup container
+    popupContainer.appendChild(greeting);
+    popupContainer.appendChild(wellWishes);
+    popupContainer.appendChild(holidayMessage);
+
+    // Append popup container to body
+    document.body.appendChild(popupContainer);
+}
+
 function showPopup() {
-    document.getElementById("popupContainer").style.display = "block";
-    document.getElementById("overlay").style.display = "block";
+    document.getElementById("popupContainer").style.visibility = "visible";
+    document.getElementById("overlay").style.visibility = "visible";
     document.getElementById("greeting").textContent = `Hello, ${greetingMessage}`;
 }
 
 function closePopup() {
-    document.getElementById("popupContainer").style.display = "none";
-    document.getElementById("overlay").style.display = "none";
+    document.getElementById("popupContainer").style.visibility = "hidden";
+    document.getElementById("overlay").style.visibility = "hidden";
 }
 
 function getCurrentTimeAndDate() {
     const now = new Date();
-    const timeOnly = now.toLocaleTimeString('en-US', { hour12: false }); 
-    const dateOnly = now.toLocaleDateString('en-US'); 
+    const timeOnly = now.toLocaleTimeString('en-US', { hour12: false });
+    const dateOnly = now.toLocaleDateString('en-US');
 
-    // console.log("Time:", timeOnly);
-    // console.log("Date:", dateOnly);
-
-    return { timeOnly, dateOnly }; 
+    return { timeOnly, dateOnly };
 }
-
 
 const { timeOnly, dateOnly } = getCurrentTimeAndDate();
 
 function wishing() {
-    const hour = parseInt(timeOnly.split(':')[0], 10); 
+    const hour = parseInt(timeOnly.split(':')[0], 10);
 
     switch (true) {
         case (hour >= 0 && hour < 12):
             return "Good Morning";
-
         case (hour >= 12 && hour < 16):
             return "Good Afternoon";
-
         case (hour >= 16 && hour < 20):
             return "Good Evening";
-
         default:
             return "Good Night";
     }
 }
 
-const greetingMessage = wishing(); 
-
-    
+const greetingMessage = wishing();
 
 function holiday() {
     const BASE_CALENDAR_URL = "https://www.googleapis.com/calendar/v3/calendars";
     const BASE_CALENDAR_ID_FOR_PUBLIC_HOLIDAY = "holiday@group.v.calendar.google.com";
-    const API_KEY = "AIzaSyDK1VxJA97m6HCraScyH1zcHObzPwR57Vk";
+    const API_KEY = "YOUR_API_KEY";
     const CALENDAR_REGION = "en.indian";
-    
+
     const url = `${BASE_CALENDAR_URL}/${CALENDAR_REGION}%23${BASE_CALENDAR_ID_FOR_PUBLIC_HOLIDAY}/events?key=${API_KEY}`;
-    
+
     fetch(url)
         .then(response => {
             if (!response.ok) {
                 throw new Error("API request failed");
             }
-            console.log("API request successful");
             return response.json();
         })
         .then(data => {
             const holidays = data.items;
-            console.log(holidays.summary)
 
             if (!holidays || holidays.length === 0) {
                 console.log("No holiday data found.");
                 return;
             }
-            
-            const today = new Date(dateOnly); 
-            
+
+            const today = new Date(dateOnly);
+
             holidays.forEach(holiday => {
-                const holidayDate = new Date(holiday.start.date); 
-                
+                const holidayDate = new Date(holiday.start.date);
+
                 if (today.getTime() === holidayDate.getTime()) {
-                    console.log("Today is a holiday:", holiday.summary);
                     document.getElementById("holidays").textContent = `Happy ${holiday.summary}`;
-                    
-                    
                     updatePopupBackground(holiday.summary);
-                    
                 } else {
                     const differenceInTime = holidayDate.getTime() - today.getTime();
-                    const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24)); 
-                    
+                    const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+
                     if (differenceInDays > 0 && differenceInDays <= 10) {
-                        
                         updatePopupBackground(holiday.summary);
-                        console.log(`Holiday '${holiday.summary}' is coming up in ${differenceInDays} days on ${holiday.start.date}`);
                         document.getElementById("holidays").textContent = `${holiday.summary} is coming up in ${differenceInDays} Days`;
                     }
                 }
@@ -367,8 +381,8 @@ function addOnamImageToPopup() {
 }
 
 window.onload = function() {
-    showPopup(); 
-    holiday();   
+    createOverlayAndPopup();
+    showPopup();
+    holiday();
 };
-
 
