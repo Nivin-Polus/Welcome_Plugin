@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plugin Page</title>
+</head>
+<body>
+    <h1>Welcome to the Plugin Page</h1>
+    <script src="bundle.js"></script>
+</body>
+</html>
