@@ -214,36 +214,43 @@
   
     let colorTarget = '';
 
-    function colorchange(target) {
-      colorTarget = target;
-      document.getElementById("colorpicker").click();
-    }
-    
-    function applyColor() {
-      const popupContainer = document.getElementById("popupContainer");
-      const color = document.getElementById("colorpicker").value;
-    
-      if (colorTarget === 'background') {
-        popupContainer.style.backgroundImage = "none";
-        popupContainer.style.backgroundColor = color;
-      } else if (colorTarget === 'text') {
-        popupContainer.style.color = color;
-      }
-    
-      
-      colorTarget = '';
-    }
-    
-    
-    let colorPicker = document.getElementById("colorpicker");
-    if (!colorPicker) {
-      colorPicker = document.createElement("input");
-      colorPicker.type = "color";
-      colorPicker.id = "colorpicker";
-      colorPicker.style.display = "none"; 
-      colorPicker.onchange = applyColor; 
-      document.body.appendChild(colorPicker); 
-    }
+function colorchange(target) {
+  colorTarget = target;
+
+  // Ensure color picker exists before clicking it
+  let colorPicker = document.getElementById("colorpicker");
+  if (!colorPicker) {
+    colorPicker = document.createElement("input");
+    colorPicker.type = "color";
+    colorPicker.id = "colorpicker";
+    colorPicker.style.display = "none"; // Hide the color picker
+    colorPicker.onchange = applyColor; // Set the onchange event to apply the selected color
+    document.body.appendChild(colorPicker);
+  }
+
+  // Click the color picker programmatically
+  colorPicker.click();
+}
+
+function applyColor() {
+  const popupContainer = document.getElementById("popupContainer");
+  if (!popupContainer) {
+    console.error("Popup container not found.");
+    return;
+  }
+
+  const color = document.getElementById("colorpicker").value;
+
+  if (colorTarget === 'background') {
+    popupContainer.style.backgroundImage = "none";
+    popupContainer.style.backgroundColor = color;
+  } else if (colorTarget === 'text') {
+    popupContainer.style.color = color;
+  }
+
+  colorTarget = '';
+}
+
   
     // Snowflakes
     let snowflakeInterval;
