@@ -254,40 +254,57 @@ function applyColor() {
   
     // Snowflakes
     let snowflakeInterval;
-    let stopSnowfallTimeout;
-    let stopSnowfall = false;
+let stopSnowfallTimeout;
+let stopSnowfall = false;
+
+function startSnowfall() {
+  // Reset the stop flag when starting the snowfall
+  stopSnowfall = false;
   
-    function startSnowfall() {
-      const numberOfSnowflakes = 30;
-  
-      snowflakeInterval = setInterval(() => {
-        if (!stopSnowfall) {
-          createSnowflake();
-        }
-      }, 300);
-      
-      stopSnowfallTimeout = setTimeout(() => {
-        stopSnowfall = true;
-        clearInterval(snowflakeInterval);
-      }, 1500);
+  // Number of snowflakes
+  const numberOfSnowflakes = 30;
+
+  // Start creating snowflakes at intervals
+  snowflakeInterval = setInterval(() => {
+    if (!stopSnowfall) {
+      createSnowflake();
     }
-  
-    function createSnowflake() {
-      if (stopSnowfall) return;
-  
-      const snowflake = document.createElement('div');
-      snowflake.classList.add('snowflake');
-      snowflake.textContent = '❄️';
-      snowflake.style.left = `${Math.random() * 100}vw`;
-      snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
-      snowflake.style.opacity = Math.random();
-  
-      document.body.appendChild(snowflake);
-  
-      snowflake.addEventListener('animationend', () => {
-        snowflake.remove();
-      });
-    }
+  }, 300);
+
+  // Set a timeout to stop snowfall after 15 seconds
+  stopSnowfallTimeout = setTimeout(() => {
+    stopSnowfall = true;
+    clearInterval(snowflakeInterval);
+    
+    // Remove all existing snowflakes from the screen
+    const allSnowflakes = document.querySelectorAll('.snowflake');
+    allSnowflakes.forEach(snowflake => snowflake.remove());
+  }, 15000);
+}
+
+function createSnowflake() {
+  // If snowfall is set to stop, don't create new snowflakes
+  if (stopSnowfall) return;
+
+  // Create a new snowflake element
+  const snowflake = document.createElement('div');
+  snowflake.classList.add('snowflake');
+  snowflake.textContent = '❄️';
+
+  // Set random styles for the snowflake
+  snowflake.style.left = `${Math.random() * 100}vw`;
+  snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+  snowflake.style.opacity = Math.random();
+
+  // Append the snowflake to the body
+  document.body.appendChild(snowflake);
+
+  // Remove the snowflake once its animation is complete
+  snowflake.addEventListener('animationend', () => {
+    snowflake.remove();
+  });
+}
+
   
     // Firework Animation
     let fireworkInterval;
