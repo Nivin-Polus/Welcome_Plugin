@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  mode: 'production', // Set to 'development' for easier debugging or 'production' for optimized code
   entry: './popup.js', // Entry point for your plugin
   output: {
     filename: 'bundle.js',

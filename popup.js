@@ -1,19 +1,19 @@
 (function(window, document) {
-    // Create required elements dynamically if they don't exist
+    
     function createRequiredElements() {
-      // Create overlay if it doesn't exist
+     
       if (!document.getElementById("overlay")) {
         const overlay = document.createElement("div");
         overlay.id = "overlay";
         document.body.appendChild(overlay);
       }
   
-      // Create popup container if it doesn't exist
+      // Create popup container
       if (!document.getElementById("popupContainer")) {
         const popupContainer = document.createElement("div");
         popupContainer.id = "popupContainer";
   
-        // Add greeting elements inside the popup container
+        // Add greeting elements 
         const greeting = document.createElement("h2");
         greeting.id = "greeting";
         greeting.textContent = "Hello, ";
@@ -36,15 +36,14 @@
       }
     }
   
-    // Function to show the popup
+   
     function showPopup() {
       createRequiredElements(); // Make sure elements are created
       document.getElementById("popupContainer").style.display = "block";
       document.getElementById("overlay").style.display = "block";
       document.getElementById("greeting").textContent = `Hello, ${greetingMessage}`;
     }
-  
-    // Function to close the popup
+ 
     function closePopup() {
       const popupContainer = document.getElementById("popupContainer");
       const overlay = document.getElementById("overlay");
@@ -331,9 +330,9 @@
     }
       
     window.onload = function() {
-      createRequiredElements(); // Ensure required elements exist
-      showPopup(); // Show the popup
-      holiday(); // Check for holidays and update accordingly
+      createRequiredElements(); 
+      showPopup(); 
+      holiday(); 
     };
   
   })(window, document);
