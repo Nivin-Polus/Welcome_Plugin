@@ -213,24 +213,36 @@
     
   
     let colorTarget = '';
-  
+
     function colorchange(target) {
       colorTarget = target;
       document.getElementById("colorpicker").click();
     }
-  
+    
     function applyColor() {
       const popupContainer = document.getElementById("popupContainer");
       const color = document.getElementById("colorpicker").value;
-  
+    
       if (colorTarget === 'background') {
         popupContainer.style.backgroundImage = "none";
         popupContainer.style.backgroundColor = color;
       } else if (colorTarget === 'text') {
         popupContainer.style.color = color;
       }
+    
       
       colorTarget = '';
+    }
+    
+    
+    let colorPicker = document.getElementById("colorpicker");
+    if (!colorPicker) {
+      colorPicker = document.createElement("input");
+      colorPicker.type = "color";
+      colorPicker.id = "colorpicker";
+      colorPicker.style.display = "none"; 
+      colorPicker.onchange = applyColor; 
+      document.body.appendChild(colorPicker); 
     }
   
     // Snowflakes
@@ -250,7 +262,7 @@
       stopSnowfallTimeout = setTimeout(() => {
         stopSnowfall = true;
         clearInterval(snowflakeInterval);
-      }, 15000);
+      }, 1500);
     }
   
     function createSnowflake() {
