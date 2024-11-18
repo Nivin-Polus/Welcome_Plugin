@@ -149,14 +149,14 @@
         startSnowfall();
         document.getElementById("holidays").textContent = "Merry Christmas! 🎄";
       } else if (holidayName === "Onam") {
-        // Onam: Fireworks, Onam animation, add image of Maveli and children, and background
+        
         popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/onam.jpg')";
         startFireworks();
         startOnamAnimation();
         addOnamImageToPopup();
         document.getElementById("holidays").textContent = "Happy Onam! 🎉";
       } else if (holidayName === "New Year") {
-        // New Year: Fireworks effect and background image
+        
         popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/new_year.jpg')";
         startFireworks();
         document.getElementById("holidays").textContent = "Happy New Year! 🎉";
@@ -258,48 +258,48 @@ let stopSnowfallTimeout;
 let stopSnowfall = false;
 
 function startSnowfall() {
-  // Reset the stop flag when starting the snowfall
+  
   stopSnowfall = false;
   
-  // Number of snowflakes
+  
   const numberOfSnowflakes = 30;
 
-  // Start creating snowflakes at intervals
+ 
   snowflakeInterval = setInterval(() => {
     if (!stopSnowfall) {
       createSnowflake();
     }
   }, 300);
 
-  // Set a timeout to stop snowfall after 15 seconds
+
   stopSnowfallTimeout = setTimeout(() => {
     stopSnowfall = true;
     clearInterval(snowflakeInterval);
     
-    // Remove all existing snowflakes from the screen
+   
     const allSnowflakes = document.querySelectorAll('.snowflake');
     allSnowflakes.forEach(snowflake => snowflake.remove());
   }, 15000);
 }
 
 function createSnowflake() {
-  // If snowfall is set to stop, don't create new snowflakes
+  
   if (stopSnowfall) return;
 
-  // Create a new snowflake element
+  
   const snowflake = document.createElement('div');
   snowflake.classList.add('snowflake');
   snowflake.textContent = '❄️';
 
-  // Set random styles for the snowflake
+  
   snowflake.style.left = `${Math.random() * 100}vw`;
   snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
   snowflake.style.opacity = Math.random();
 
-  // Append the snowflake to the body
+  
   document.body.appendChild(snowflake);
 
-  // Remove the snowflake once its animation is complete
+  
   snowflake.addEventListener('animationend', () => {
     snowflake.remove();
   });
@@ -308,130 +308,158 @@ function createSnowflake() {
   
     // Firework Animation
     let fireworkInterval;
-    let fireworkTimeout;
-  
-    function startFireworks() {
-      const fireworksContainer = document.getElementById("fireworksContainer");
-      fireworksContainer.style.display = "block";
-      
-      fireworkInterval = setInterval(createFireworkBurst, 500);
-      fireworkTimeout = setTimeout(stopFireworks, 10000);
-    }
-  
-    function stopFireworks() {
-      const fireworksContainer = document.getElementById("fireworksContainer");
-      clearInterval(fireworkInterval);
-      fireworksContainer.style.display = "none";
-      fireworksContainer.innerHTML = "";
-    }
-  
-    function createFireworkBurst() {
-      const fireworksContainer = document.getElementById("fireworksContainer");
-      const burstCenterX = Math.random() * window.innerWidth;
-      const burstCenterY = Math.random() * window.innerHeight * 0.5; // Explodes in upper half of screen
-  
-      const numberOfParticles = 30;
-      for (let i = 0; i < numberOfParticles; i++) {
+let fireworkTimeout;
+
+function startFireworks() {
+    const fireworksContainer = document.getElementById("fireworksContainer");
+    fireworksContainer.style.display = "block";
+   
+    fireworkInterval = setInterval(createFireworkBurst, 500);
+
+    fireworkTimeout = setTimeout(stopFireworks, 10000);
+}
+
+function stopFireworks() {
+    const fireworksContainer = document.getElementById("fireworksContainer");
+    clearInterval(fireworkInterval);
+    fireworksContainer.style.display = "none";
+    fireworksContainer.innerHTML = "";
+}
+
+function createFireworkBurst() {
+    const fireworksContainer = document.getElementById("fireworksContainer");
+    const burstCenterX = Math.random() * window.innerWidth;
+    const burstCenterY = Math.random() * window.innerHeight * 0.5; // Explodes in upper half of screen
+
+    // Create multiple particles for each burst
+    const numberOfParticles = 30;
+    for (let i = 0; i < numberOfParticles; i++) {
         createFireworkParticle(burstCenterX, burstCenterY);
-      }
     }
-  
-    function createFireworkParticle(x, y) {
-      const fireworksContainer = document.getElementById("fireworksContainer");
-      const particle = document.createElement("div");
-      particle.classList.add("firework");
-  
-      const angle = Math.random() * 2 * Math.PI;
-      const speed = Math.random() * 4 + 2;
-      const velocityX = Math.cos(angle) * speed;
-      const velocityY = Math.sin(angle) * speed;
-  
-      particle.style.left = `${x}px`;
-      particle.style.top = `${y}px`;
-      particle.style.backgroundColor = getRandomColor();
-  
-      fireworksContainer.appendChild(particle);
-  
-      let lifetime = 0;
-      const animationInterval = setInterval(() => {
+}
+
+function createFireworkParticle(x, y) {
+    const fireworksContainer = document.getElementById("fireworksContainer");
+    const particle = document.createElement("div");
+    particle.classList.add("firework");
+
+    
+    const angle = Math.random() * 2 * Math.PI; 
+    const speed = Math.random() * 4 + 2; 
+    const velocityX = Math.cos(angle) * speed;
+    const velocityY = Math.sin(angle) * speed;
+
+    particle.style.left = `${x}px`;
+    particle.style.top = `${y}px`;
+
+    // Randomize color of each particle
+    particle.style.backgroundColor = getRandomColor();
+
+    fireworksContainer.appendChild(particle);
+
+    // Animate the particle
+    let lifetime = 0;
+    const animationInterval = setInterval(() => {
         lifetime += 1;
         particle.style.transform = `translate(${velocityX * lifetime}px, ${velocityY * lifetime}px)`;
-        particle.style.opacity = Math.max(1 - lifetime / 20, 0);
+        particle.style.opacity = Math.max(1 - lifetime / 20, 0); 
         
         if (lifetime > 25) {
-          clearInterval(animationInterval);
-          particle.remove();
+            clearInterval(animationInterval);
+            particle.remove();
         }
-      }, 16);
-    }
-  
-    function getRandomColor() {
-      const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#FFBD33"];
-      return colors[Math.floor(Math.random() * colors.length)];
-    }
-  
-    // Flowers Onam
-    let flowerInterval;
-    let flowerTimeout;
-  
-    function startOnamAnimation() {
-      let flowerContainer = document.getElementById("flowerContainer");
-      if (!flowerContainer) {
+    }, 16); 
+}
+
+function getRandomColor() {
+    const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33A1", "#FFBD33"];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+
+// Flowers Onam
+let flowerInterval;
+let flowerTimeout;
+
+function startOnamAnimation() {
+    
+    let flowerContainer = document.getElementById("flowerContainer");
+    if (!flowerContainer) {
         flowerContainer = document.createElement("div");
         flowerContainer.id = "flowerContainer";
         document.body.appendChild(flowerContainer);
-      }
-  
-      flowerContainer.style.display = "block";
-      flowerInterval = setInterval(createFlower, 300);
-      flowerTimeout = setTimeout(stopOnamAnimation, 7000);
     }
+
+    flowerContainer.style.display = "block"; 
+
+   
+    flowerInterval = setInterval(createFlower, 300);
+
   
-    function stopOnamAnimation() {
-      const flowerContainer = document.getElementById("flowerContainer");
-      clearInterval(flowerInterval);
-      if (flowerContainer) {
-        flowerContainer.style.display = "none";
-        flowerContainer.innerHTML = "";
-      }
+    flowerTimeout = setTimeout(stopOnamAnimation, 7000);
+}
+
+function stopOnamAnimation() {
+    const flowerContainer = document.getElementById("flowerContainer");
+    clearInterval(flowerInterval); 
+    if (flowerContainer) {
+        flowerContainer.style.display = "none"; 
+        flowerContainer.innerHTML = ""; 
     }
-  
-    function createFlower() {
-      const flowerContainer = document.getElementById("flowerContainer");
-      const flower = document.createElement("div");
-      flower.classList.add("flower");
-      flower.style.left = `${Math.random() * 100}vw`;
-      flower.style.animationDuration = `${Math.random() * 3 + 2}s`;
-      flowerContainer.appendChild(flower);
-  
-      flower.addEventListener("animationend", () => {
+}
+
+function createFlower() {
+    const flowerContainer = document.getElementById("flowerContainer");
+    const flower = document.createElement("div");
+    flower.classList.add("flower");
+
+    
+    flower.style.left = `${Math.random() * 100}vw`;
+    flower.style.animationDuration = `${Math.random() * 3 + 2}s`; 
+
+    
+    flowerContainer.appendChild(flower);
+
+    
+    flower.addEventListener("animationend", () => {
         flower.remove();
-      });
-    }
-  
-    // Onam
-    function addOnamImageToPopup() {
-      const popupContainer = document.getElementById("popupContainer");
-      const onamImageContainer = document.createElement("div");
-      onamImageContainer.id = "onamImageContainer";
-  
-      const onamImage = document.createElement("img");
-      onamImage.src = "./img/onam12.webp";
-      onamImage.alt = "Maveli and Kids";
-      onamImage.id = "onamImage";
-  
-      const speechBubble = document.createElement("div");
-      speechBubble.id = "speechBubble";
-      speechBubble.textContent = "Happy Onam!";
-  
-      const speechBubbleArrow = document.createElement("div");
-      speechBubbleArrow.className = "speechBubbleArrow";
-      speechBubble.appendChild(speechBubbleArrow);
-  
-      onamImageContainer.appendChild(speechBubble);
-      onamImageContainer.appendChild(onamImage);
-      popupContainer.insertBefore(onamImageContainer, popupContainer.firstChild);
-    }
+    });
+}
+
+//onam
+function addOnamImageToPopup() {
+    // Get the popup container
+    const popupContainer = document.getElementById("popupContainer");
+
+    // Create the container for the Onam image
+    const onamImageContainer = document.createElement("div");
+    onamImageContainer.id = "onamImageContainer";
+
+    // Create the Onam image
+    const onamImage = document.createElement("img");
+    onamImage.src = "./img/onam12.webp";
+    onamImage.alt = "Maveli and Kids";
+    onamImage.id = "onamImage";
+
+    // Create the speech bubble
+    const speechBubble = document.createElement("div");
+    speechBubble.id = "speechBubble";
+    speechBubble.textContent = "Happy Onam!";
+
+    // Create the arrow below the speech bubble
+    const speechBubbleArrow = document.createElement("div");
+    speechBubbleArrow.className = "speechBubbleArrow";
+
+    // Append the arrow to the speech bubble
+    speechBubble.appendChild(speechBubbleArrow);
+
+    // Append the speech bubble above the Onam image in the image container
+    onamImageContainer.appendChild(speechBubble);
+    onamImageContainer.appendChild(onamImage);
+
+    // Append the image container to the popup container
+    popupContainer.insertBefore(onamImageContainer, popupContainer.firstChild);
+}
       
     window.onload = function() {
       createRequiredElements(); 
