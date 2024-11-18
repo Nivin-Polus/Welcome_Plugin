@@ -2,11 +2,11 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  mode: 'production', // Set to 'development' for easier debugging or 'production' for optimized code
-  entry: './popup.js', // Entry point for your plugin
+  mode: 'production',
+  entry: './popup.js', 
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'), // Output directory
+    path: path.resolve(__dirname, 'dist'), 
   },
   module: {
     rules: [
@@ -16,13 +16,13 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif|svg)$/i,
-        type: 'asset/inline', // Inlines the image as Base64
+        type: 'asset/inline', 
       },
     ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'styles.css', // Output CSS file name
+      filename: '[[popup.css]]', 
     }),
   ],
 };
