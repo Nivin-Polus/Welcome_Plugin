@@ -31,6 +31,16 @@
         closeButton.textContent = "Close";
         closeButton.onclick = closePopup;
         popupContainer.appendChild(closeButton);
+
+        const backgroundColorButton = document.createElement("button");
+        backgroundColorButton.textContent = "Change Background Color";
+        backgroundColorButton.onclick = () => colorchange('background');
+        popupContainer.appendChild(backgroundColorButton);
+      
+        const textColorButton = document.createElement("button");
+        textColorButton.textContent = "Change Text Color";
+        textColorButton.onclick = () => colorchange('text');
+        popupContainer.appendChild(textColorButton);
   
         document.body.appendChild(popupContainer);
       }
@@ -132,17 +142,75 @@
   
     function updatePopupBackground(holidayName) {
       const popupContainer = document.getElementById("popupContainer");
-  
+    
       if (holidayName === "Christmas" || holidayName === "Christmas Eve") {
+        // Christmas: Snowfall effect and background image
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/christmas.jpg')";
         startSnowfall();
+        document.getElementById("holidays").textContent = "Merry Christmas! 🎄";
       } else if (holidayName === "Onam") {
+        // Onam: Fireworks, Onam animation, add image of Maveli and children, and background
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/onam.jpg')";
         startFireworks();
         startOnamAnimation();
         addOnamImageToPopup();
-      } else if (holidayName === "New Year" || holidayName === "Republic Day" || holidayName === "Independence Day" || holidayName === "Diwali" || holidayName === "Holi") {
+        document.getElementById("holidays").textContent = "Happy Onam! 🎉";
+      } else if (holidayName === "New Year") {
+        // New Year: Fireworks effect and background image
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/new_year.jpg')";
         startFireworks();
+        document.getElementById("holidays").textContent = "Happy New Year! 🎉";
+      } else if (holidayName === "Republic Day") {
+        // Republic Day: Fireworks effect and background image
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/republic_day.jpg')";
+        startFireworks();
+        document.getElementById("holidays").textContent = "Happy Republic Day! 🇮🇳";
+      } else if (holidayName === "Independence Day") {
+        // Independence Day: Fireworks effect and background image
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/independence_day.jpg')";
+        startFireworks();
+        document.getElementById("holidays").textContent = "Happy Independence Day! 🇮🇳";
+      } else if (holidayName === "Gandhi Jayanti") {
+        // Gandhi Jayanti: Background image and greeting
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/gandhi_jayanti.jpg')";
+        document.getElementById("holidays").textContent = "Gandhi Jayanti - Tribute to Mahatma Gandhi! 🕊️";
+      } else if (holidayName === "Diwali") {
+        // Diwali: Fireworks effect and background image
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/diwali.jpg')";
+        startFireworks();
+        document.getElementById("holidays").textContent = "Happy Diwali! 🪔";
+      } else if (holidayName === "Holi") {
+        // Holi: Fireworks effect and background image
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/holi.jpg')";
+        startFireworks();
+        document.getElementById("holidays").textContent = "Happy Holi! 🎨";
+      } else if (holidayName === "Pongal") {
+        // Pongal: Background image and greeting
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/pongal.jpg')";
+        document.getElementById("holidays").textContent = "Happy Pongal! 🌾";
+      } else if (holidayName === "Ganesh Chaturthi") {
+        // Ganesh Chaturthi: Background image and greeting
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/ganesh_chaturthi.jpg')";
+        document.getElementById("holidays").textContent = "Happy Ganesh Chaturthi! 🙏🐘";
+      } else if (holidayName === "Guru Nanak Jayanti") {
+        // Guru Nanak Jayanti: Background image and greeting
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/guru_nanak_jayanti.jpg')";
+        document.getElementById("holidays").textContent = "Happy Guru Nanak Jayanti! 🙏";
+      } else if (holidayName === "Mahashivratri") {
+        // Mahashivratri: Background image and greeting
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/mahashivratri.jpg')";
+        document.getElementById("holidays").textContent = "Happy Mahashivratri! 🕉️";
+      } else if (holidayName === "Vasant Panchami") {
+        // Vasant Panchami: Background image and greeting
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/vasant_panchami.jpg')";
+        document.getElementById("holidays").textContent = "Happy Vasant Panchami! 🌼";
+      } else {
+        // Default: No specific holiday effect
+        popupContainer.style.backgroundImage = "";
+        document.getElementById("holidays").textContent = "Welcome!";
       }
     }
+    
   
     let colorTarget = '';
   
