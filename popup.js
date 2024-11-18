@@ -144,13 +144,13 @@
       const popupContainer = document.getElementById("popupContainer");
     
       if (holidayName === "Christmas" || holidayName === "Christmas Eve") {
-        // Christmas: Snowfall effect and background image
-        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/christmas.jpg')";
+        
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/istockphoto-495053030-612x612.jpg')";
         startSnowfall();
         document.getElementById("holidays").textContent = "Merry Christmas! 🎄";
       } else if (holidayName === "Onam") {
         
-        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/onam.jpg')";
+        popupContainer.style.backgroundImage = "url('https://nivin-polus.github.io/Welcome_Plugin/img/istockphoto-495053030-612x612.jpg')";
         startFireworks();
         startOnamAnimation();
         addOnamImageToPopup();
@@ -217,18 +217,18 @@
 function colorchange(target) {
   colorTarget = target;
 
-  // Ensure color picker exists before clicking it
+  
   let colorPicker = document.getElementById("colorpicker");
   if (!colorPicker) {
     colorPicker = document.createElement("input");
     colorPicker.type = "color";
     colorPicker.id = "colorpicker";
-    colorPicker.style.display = "none"; // Hide the color picker
-    colorPicker.onchange = applyColor; // Set the onchange event to apply the selected color
+    colorPicker.style.display = "none"; 
+    colorPicker.onchange = applyColor; 
     document.body.appendChild(colorPicker);
   }
 
-  // Click the color picker programmatically
+  
   colorPicker.click();
 }
 
@@ -329,9 +329,8 @@ function stopFireworks() {
 function createFireworkBurst() {
     const fireworksContainer = document.getElementById("fireworksContainer");
     const burstCenterX = Math.random() * window.innerWidth;
-    const burstCenterY = Math.random() * window.innerHeight * 0.5; // Explodes in upper half of screen
+    const burstCenterY = Math.random() * window.innerHeight * 0.5; 
 
-    // Create multiple particles for each burst
     const numberOfParticles = 30;
     for (let i = 0; i < numberOfParticles; i++) {
         createFireworkParticle(burstCenterX, burstCenterY);
@@ -428,36 +427,36 @@ function createFlower() {
 
 //onam
 function addOnamImageToPopup() {
-    // Get the popup container
+    
     const popupContainer = document.getElementById("popupContainer");
 
-    // Create the container for the Onam image
+    
     const onamImageContainer = document.createElement("div");
     onamImageContainer.id = "onamImageContainer";
 
-    // Create the Onam image
+    
     const onamImage = document.createElement("img");
     onamImage.src = "./img/onam12.webp";
     onamImage.alt = "Maveli and Kids";
     onamImage.id = "onamImage";
 
-    // Create the speech bubble
+    
     const speechBubble = document.createElement("div");
     speechBubble.id = "speechBubble";
     speechBubble.textContent = "Happy Onam!";
 
-    // Create the arrow below the speech bubble
+    
     const speechBubbleArrow = document.createElement("div");
     speechBubbleArrow.className = "speechBubbleArrow";
 
-    // Append the arrow to the speech bubble
+   
     speechBubble.appendChild(speechBubbleArrow);
 
-    // Append the speech bubble above the Onam image in the image container
+    
     onamImageContainer.appendChild(speechBubble);
     onamImageContainer.appendChild(onamImage);
 
-    // Append the image container to the popup container
+    
     popupContainer.insertBefore(onamImageContainer, popupContainer.firstChild);
 }
       
