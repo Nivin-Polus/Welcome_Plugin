@@ -117,7 +117,7 @@
               const differenceInTime = holidayDate.getTime() - today.getTime();
               const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
               
-              if (differenceInDays > 0 && differenceInDays <= 10) {
+              if (differenceInDays > 0 && differenceInDays <= 50) {
                 updatePopupBackground(holiday.summary);
                 console.log(`Holiday '${holiday.summary}' is coming up in ${differenceInDays} days on ${holiday.start.date}`);
                 document.getElementById("holidays").textContent = `${holiday.summary} is coming up in ${differenceInDays} Days`;
